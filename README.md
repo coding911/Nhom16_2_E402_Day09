@@ -1,3 +1,10 @@
+# Thành viên
+- Lại Đức Anh - 2A202600374
+- Hoàng Ngọc Thạch - 2A202600068
+- Nguyễn Minh Trí - 2A202600182
+
+---
+
 # Lab Day 09 — Multi-Agent Orchestration
 
 **Môn:** AI in Action (AICB-P1)  
