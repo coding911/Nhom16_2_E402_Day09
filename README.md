@@ -96,22 +96,7 @@ cp .env.example .env
 
 ### 3. Build index từ Day 08 (nếu chưa có)
 ```bash
-# Copy ChromaDB index từ Day 08, hoặc chạy lại:
-python -c "
-import chromadb, os
-from sentence_transformers import SentenceTransformer
-
-client = chromadb.PersistentClient(path='./chroma_db')
-col = client.get_or_create_collection('day09_docs')
-model = SentenceTransformer('all-MiniLM-L6-v2')
-
-docs_dir = './data/docs'
-for fname in os.listdir(docs_dir):
-    with open(os.path.join(docs_dir, fname)) as f:
-        content = f.read()
-    print(f'Indexed: {fname}')
-print('Index ready.')
-"
+python build_index.py
 ```
 
 ### 4. Kiểm tra setup
