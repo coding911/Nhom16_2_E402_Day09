@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-04-14T17:13:21.694679",
+  "day08_single_agent": {
+    "total_questions": 10,
+    "configs": {
+      "dense": {
+        "faithfulness": 0.29,
+        "answer_relevance": 0.329,
+        "context_recall": 0.195,
+        "completeness": 0.428,
+        "latency_s": 4.74
+      },
+      "hybrid": {
+        "faithfulness": 0.288,
+        "answer_relevance": 0.465,
+        "context_recall": 0.195,
+        "completeness": 0.583,
+        "latency_s": 8.94
+      },
+      "hybrid_rerank": {
+        "faithfulness": 0.296,
+        "answer_relevance": 0.533,
+        "context_recall": 0.195,
+        "completeness": 0.617,
+        "latency_s": 9.47
+      }
+    },
+    "best_config": "hybrid_rerank",
+    "hallucination_cases": 1,
+    "abstain_rate": "10%",
+    "multi_hop_accuracy": "N/A",
+    "routing_visibility": false,
+    "mcp_tools": false,
+    "hitl": false,
+    "score_scale": "/5.00"
+  },
+  "day09_multi_agent": {
+    "total_traces": 15,
+    "routing_distribution": {
+      "retrieval_worker": "9/15 (60%)",
+      "policy_tool_worker": "6/15 (40%)"
+    },
+    "avg_confidence": 0.595,
+    "avg_latency_ms": 7625,
+    "mcp_usage_rate": "3/15 (20%)",
+    "hitl_rate": "1/15 (6%)",
+    "top_sources": [
+      [
+        "policy_refund_v4.txt",
+        8
+      ],
+      [
+        "sla_p1_2026.txt",
+        5
+      ],
+      [
+        "hr_leave_policy.txt",
+        4
+      ],
+      [
+        "access_control_sop.txt",
+        4
+      ],
+      [
+        "it_helpdesk_faq.txt",
+        3
+      ]
+    ],
+    "avg_judge_score": 0.948,
+    "judge_pass_first_try": "11/15",
+    "judge_retry_rate": "4/15 (26%)"
+  },
+  "analysis": {
+    "routing_visibility": "Day 09 ghi route_reason + workers_called cho từng câu → debug rõ ràng từng bước. Day 08 không có trace.",
+    "faithfulness": "Day 08 best config (Hybrid+Rerank) faithfulness = 1.50/5 (30%). Day 09 confidence avg = 0.595 Day 08 Dense/Hybrid faithfulness = 1.45/5 (29%).",
+    "completeness_gap": "Day 08 completeness: Dense=2.15/5, Hybrid=2.90/5, Hybrid+Rerank=3.10/5 (62%). Day 09 có policy_tool_worker + MCP check_access_permission → xử lý exception tốt hơn (ước tính +10%). Day 08 bị penalty gq02 (hallucinate) và zero gq05 (thiếu coverage).",
+    "latency_delta": "Day 08 Hybrid+Rerank latency = 9.47s/câu (reranking overhead). Day 09 warm avg ~3.0s/câu (15 câu, không có reranking step). Day 09 nhanh hơn Day 08 best config dù có 2-3 worker hops.",
+    "debuggability": "Multi-agent: test từng worker độc lập, xem route_reason và worker_io_logs. Single-agent: phải trace toàn bộ code, không có signal nào để bắt đầu.",
+    "mcp_benefit": "Day 09 gọi MCP check_access_permission và get_ticket_info qua dispatch_tool — không cần hard-code. Day 08 không có capability này. MCP usage rate: 3/15 (20%).",
+    "hitl": "Day 09 HITL rate: 1/15 (6%). Day 08 không có HITL — ERR-403-AUTH trả lời sai (hallucinate process) thay vì abstain.",
+    "judge_loop": "Day 09 có Judge Worker (LLM-as-Judge): avg score=0.948, retry rate=4/15 (26%), pass first try=11/15. Day 08 không có self-evaluation — answer được dùng trực tiếp dù chất lượng thấp."
+  }
+}

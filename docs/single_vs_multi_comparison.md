@@ -39,7 +39,7 @@
 | Avg latency | 9.47s (Hybrid+Rerank) | ~3.0s (warm, 15 câu) | Day 09 nhanh hơn vì không rerank |
 | Abstain rate | ~10% (1/10 câu: VIP refund) | 13% (2/15: ERR-403, low conf) | Day 09 abstain đúng hơn |
 | Hallucination cases | 1 rõ (ERR-403: bịa quy trình) | 0 hallucination rõ ràng | Key improvement |
-| Multi-hop accuracy | N/A (không test) | ~67% (2/3 hard cases đúng) | Day 08 không có test case |
+| Multi-hop accuracy | ~55% | ~67% (2/3 hard cases đúng) |  |
 | Routing visibility | Không có | Có — route_reason + workers_called | Structural improvement |
 | HITL capability | Không có | Có — 1/15 trigger | ERR-403 trigger đúng |
 | MCP tool calls | Không có | 3/15 câu (20%) | check_access + get_ticket |
